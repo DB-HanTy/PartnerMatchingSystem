@@ -1,4 +1,4 @@
-package com.hty.usercenter.model.domain;
+package com.hty.partnermatching.model.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
 

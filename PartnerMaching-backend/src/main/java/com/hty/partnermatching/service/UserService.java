@@ -1,9 +1,10 @@
-package com.hty.usercenter.service;
+package com.hty.partnermatching.service;
 
-import com.hty.usercenter.model.domain.User;
+import com.hty.partnermatching.model.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author hty
@@ -54,4 +55,12 @@ public interface UserService extends IService<User> {
      * @return
      */
     User updateUser(User user, User currentUser);
+
+    /**
+     * 根据标签搜索用户
+     *
+     * @param tagNameList
+     * @return
+     */
+    List<User> searchUsersByTags(List<String> tagNameList);
 }

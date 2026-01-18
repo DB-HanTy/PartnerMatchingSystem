@@ -1,10 +1,10 @@
-package com.hty.usercenter;
+package com.hty.partnermatching;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@MapperScan("com.hty.usercenter.mapper")
+@MapperScan("com.hty.partnermatching.mapper")
 
 @SpringBootApplication
 public class PartnerMatchingApplication {

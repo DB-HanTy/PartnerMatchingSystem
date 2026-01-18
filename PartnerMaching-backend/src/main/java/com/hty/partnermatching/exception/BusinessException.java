@@ -1,6 +1,6 @@
-package com.hty.usercenter.exception;
+package com.hty.partnermatching.exception;
 
-import com.hty.usercenter.common.ErrorCode;
+import com.hty.partnermatching.common.ErrorCode;
 
 /**
  * 自定义业务异常

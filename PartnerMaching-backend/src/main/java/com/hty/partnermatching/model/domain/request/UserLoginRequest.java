@@ -1,4 +1,4 @@
-package com.hty.usercenter.model.domain.request;
+package com.hty.partnermatching.model.domain.request;
 
 import lombok.Data;
 

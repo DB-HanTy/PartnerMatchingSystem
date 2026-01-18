@@ -1,8 +1,8 @@
-package com.hty.usercenter.exception;
+package com.hty.partnermatching.exception;
 
-import com.hty.usercenter.common.BaseResponse;
-import com.hty.usercenter.common.ErrorCode;
-import com.hty.usercenter.common.ResultUtils;
+import com.hty.partnermatching.common.BaseResponse;
+import com.hty.partnermatching.common.ErrorCode;
+import com.hty.partnermatching.common.ResultUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

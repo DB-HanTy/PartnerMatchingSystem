@@ -1,4 +1,4 @@
-package com.hty.usercenter.common;
+package com.hty.partnermatching.common;
 
 import lombok.Data;
 

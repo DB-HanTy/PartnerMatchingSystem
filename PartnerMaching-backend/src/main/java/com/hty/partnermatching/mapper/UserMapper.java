@@ -1,6 +1,6 @@
-package com.hty.usercenter.mapper;
+package com.hty.partnermatching.mapper;
 
-import com.hty.usercenter.model.domain.User;
+import com.hty.partnermatching.model.domain.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

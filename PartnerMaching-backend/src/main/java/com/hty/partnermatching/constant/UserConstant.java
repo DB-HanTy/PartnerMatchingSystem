@@ -1,4 +1,4 @@
-package com.hty.usercenter.constant;
+package com.hty.partnermatching.constant;
 
 /**
  * 用户常量

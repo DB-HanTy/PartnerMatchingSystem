@@ -1,25 +1,24 @@
-package com.hty.usercenter.controller;
+package com.hty.partnermatching.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.hty.usercenter.common.BaseResponse;
-import com.hty.usercenter.common.ErrorCode;
-import com.hty.usercenter.common.ResultUtils;
-import com.hty.usercenter.exception.BusinessException;
-import com.hty.usercenter.model.domain.User;
-import com.hty.usercenter.model.domain.request.UserLoginRequest;
-import com.hty.usercenter.model.domain.request.UserRegisterRequest;
-import com.hty.usercenter.service.UserService;
+import com.hty.partnermatching.common.BaseResponse;
+import com.hty.partnermatching.common.ErrorCode;
+import com.hty.partnermatching.common.ResultUtils;
+import com.hty.partnermatching.exception.BusinessException;
+import com.hty.partnermatching.model.domain.User;
+import com.hty.partnermatching.model.domain.request.UserLoginRequest;
+import com.hty.partnermatching.model.domain.request.UserRegisterRequest;
+import com.hty.partnermatching.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.hty.usercenter.constant.UserConstant.ADMIN_ROLE;
-import static com.hty.usercenter.constant.UserConstant.USER_LOGIN_STATE;
+import static com.hty.partnermatching.constant.UserConstant.ADMIN_ROLE;
+import static com.hty.partnermatching.constant.UserConstant.USER_LOGIN_STATE;
 
 @RestController//@RestController适用于restful风格的api，返回值默认为json类型
 @RequestMapping("/user")

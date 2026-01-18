@@ -1,4 +1,4 @@
-package com.hty.usercenter.common;
+package com.hty.partnermatching.common;
 
 /**
  * 错误码

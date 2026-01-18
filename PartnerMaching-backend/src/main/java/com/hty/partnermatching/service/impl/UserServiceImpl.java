@@ -1,23 +1,26 @@
-package com.hty.usercenter.service.impl;
+package com.hty.partnermatching.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hty.usercenter.common.ErrorCode;
-import com.hty.usercenter.exception.BusinessException;
-import com.hty.usercenter.model.domain.User;
-import com.hty.usercenter.service.UserService;
-import com.hty.usercenter.mapper.UserMapper;
+import com.hty.partnermatching.common.ErrorCode;
+import com.hty.partnermatching.exception.BusinessException;
+import com.hty.partnermatching.model.domain.User;
+import com.hty.partnermatching.service.UserService;
+import com.hty.partnermatching.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-import static com.hty.usercenter.constant.UserConstant.USER_LOGIN_STATE;
+import static com.hty.partnermatching.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
 * @author hty
@@ -236,6 +239,29 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
         // 返回更新后的安全用户信息
         return getSafetyUser(this.getById(updateUserInfo.getId()));
+    }
+
+    /**
+     * 根据标签搜索用户
+     *
+     * @param tagNameList
+     * @return
+     */
+    @Override
+
+    public List<User> searchUsersByTags(List<String> tagNameList){
+        if (CollectionUtils.isEmpty(tagNameList)){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        //拼接 and 查询
+        //like '%Java%' and like '%Python%'
+        for (String tagName : tagNameList){
+            queryWrapper = queryWrapper.like("tags",tagName);
+        }
+        List<User> userList = userMapper.selectList(queryWrapper);
+        return userList.stream().map(this::getSafetyUser).collect(Collectors.toList());
     }
 
 }
