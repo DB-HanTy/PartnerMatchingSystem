@@ -18,7 +18,9 @@ import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -276,10 +278,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         //2.在内存中判断是否包含要求的标签
         return userList.stream().filter(user -> {
             String tagStr = user.getTags();
-            Set<String> tempTagNameSet = gson.fromJson(tagStr, new TypeToken<Set<String>>() {
-            }.getType());
+            if (StringUtils.isBlank(tagStr)){
+                return false;
+            }
+            Set<String> tempTagNameSet = gson.fromJson(tagStr, new TypeToken<Set<String>>() {}.getType());
+            //判空 Optional来消除分支
+            tempTagNameSet = Optional.ofNullable(tempTagNameSet).orElse(new HashSet<>());
             for (String tagName : tagNameList){
-                if (tempTagNameSet.contains(tagName)) {
+                if (!tempTagNameSet.contains(tagName)) {
                     return false;
                 }
             }
