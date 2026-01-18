@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: partner-maching
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/usercenter
+  #session失效时间
+  session:
+    timeout: 86400
+server:
+  port: 8085
+  servlet:
+    context-path: /api
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      logic-delete-field: isDelete
+      logic-delete-value: 1
+      logic-not-delete-value: 0
