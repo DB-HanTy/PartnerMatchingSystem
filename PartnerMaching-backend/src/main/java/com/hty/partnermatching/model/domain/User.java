@@ -86,4 +86,8 @@ public class User {
      * 用户编号
      */
     private String userCode;
+    /**
+     * 标签
+     */
+    private String tags;
 }

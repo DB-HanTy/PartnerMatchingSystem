@@ -2,6 +2,9 @@ package com.hty.partnermatching.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.gson.Gson;
+import com.google.gson.TypeAdapter;
+import com.google.gson.reflect.TypeToken;
 import com.hty.partnermatching.common.ErrorCode;
 import com.hty.partnermatching.exception.BusinessException;
 import com.hty.partnermatching.model.domain.User;
@@ -16,6 +19,7 @@ import org.springframework.util.DigestUtils;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -171,6 +175,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         safetyUser.setUserRole(originUser.getUserRole());
         safetyUser.setUserStatus(originUser.getUserStatus());
         safetyUser.setCreateTime(originUser.getCreateTime());
+        safetyUser.setTags(originUser.getTags());
         return safetyUser;
     }
 
@@ -254,14 +259,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
 
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        //拼接 and 查询
-        //like '%Java%' and like '%Python%'
-        for (String tagName : tagNameList){
-            queryWrapper = queryWrapper.like("tags",tagName);
-        }
+        //SQL查询
+//        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+//        //拼接 and 查询
+//        //like '%Java%' and like '%Python%'
+//        for (String tagName : tagNameList){
+//            queryWrapper = queryWrapper.like("tags",tagName);
+//        }
+//        List<User> userList = userMapper.selectList(queryWrapper);
+
+        //内存查询
+        //1.先查询所有用户
+        QueryWrapper queryWrapper = new QueryWrapper();
         List<User> userList = userMapper.selectList(queryWrapper);
-        return userList.stream().map(this::getSafetyUser).collect(Collectors.toList());
+        Gson gson = new Gson();
+        //2.在内存中判断是否包含要求的标签
+        return userList.stream().filter(user -> {
+            String tagStr = user.getTags();
+            Set<String> tempTagNameSet = gson.fromJson(tagStr, new TypeToken<Set<String>>() {
+            }.getType());
+            for (String tagName : tagNameList){
+                if (tempTagNameSet.contains(tagName)) {
+                    return false;
+                }
+            }
+            return true;
+        }).map(this::getSafetyUser).collect(Collectors.toList());
     }
 
 }
