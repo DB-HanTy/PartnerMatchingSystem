@@ -1,7 +1,7 @@
 <template>
     <form action="/">
   <van-search
-    v-model="value"
+    v-model="searchText"
     show-action
     placeholder="请输入要搜索的标签"
     @search="onSearch"
@@ -31,12 +31,7 @@ import { ref } from 'vue';
 import { showToast } from 'vant';
 
 const searchText = ref('');
-const onSearch = (val) => showToast(val);
-const onCancel = () => showToast('取消');
-
-const activeIds = ref([]);
-const activeIndex = ref(0);
-const tagList = [
+const originTagList = [
       {
         text: '性别',
         children: [
@@ -49,15 +44,31 @@ const tagList = [
         children: [
           { text: '大一', id: '大一' },
           { text: '大二', id: '大二' },
-          { text: '大三', id: '大三' },
-          { text: '大四', id: '大四' },
         ],
       },
-    ];
+]
+
+let tagList = ref(originTagList);
+const onSearch = (val) => {
+  tagList.value = originTagList.map(parentTag => {
+    const tempChildren = [...parentTag.children];
+    const tempParentTag = {...parentTag};
+    tempParentTag.children = tempChildren.filter(item => item.text.includes(searchText.value));
+    return tempParentTag;
+  });
+};
+const onCancel = () => {
+  searchText.value = '';
+  tagList.value = originTagList;
+};
+
+const activeIds = ref([]);
+const activeIndex = ref(0);
+
 //删除标签
 const doClose = (tag) => {
   activeIds.value = activeIds.value.filter(item =>{
-    return item != tag;
+    return item !== tag;
   });
 };
 </script>
