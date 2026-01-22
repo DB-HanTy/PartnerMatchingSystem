@@ -9,6 +9,7 @@ import com.hty.partnermatching.model.domain.User;
 import com.hty.partnermatching.model.domain.request.UserLoginRequest;
 import com.hty.partnermatching.model.domain.request.UserRegisterRequest;
 import com.hty.partnermatching.service.UserService;
+import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 import static com.hty.partnermatching.constant.UserConstant.ADMIN_ROLE;
 import static com.hty.partnermatching.constant.UserConstant.USER_LOGIN_STATE;
 
+@Api(tags = "用户管理")
 @RestController//@RestController适用于restful风格的api，返回值默认为json类型
 @RequestMapping("/user")
 public class UserController {
