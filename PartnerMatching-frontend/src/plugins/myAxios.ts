@@ -1,5 +1,5 @@
-import axios from 'axios'
-const myAxios = axios.create({
+import axios, { type AxiosInstance } from 'axios'
+const myAxios: AxiosInstance = axios.create({
   baseURL: 'http://localhost:8085/api'
 });
 
