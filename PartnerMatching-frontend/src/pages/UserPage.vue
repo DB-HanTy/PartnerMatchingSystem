@@ -7,7 +7,7 @@
 <van-cell title="性别" :value="user.gender" @click="toEdit('gender','性别',user.gender)"/>
 <van-cell title="电话" is-link to="/user/edit" :value="user.phone" @click="toEdit('phone','电话',user.phone)"/>
 <van-cell title="邮箱" is-link to="/user/edit" :value="user.email" />
-<van-cell title="用户编号" :value="user.usertCode" />
+<van-cell title="用户编号" :value="user.userCode" />
 <van-cell title="注册时间" :value="user.createTime.toISOString()" />
 </template>
 <script setup lang="ts">
@@ -16,11 +16,11 @@ const user = {
     id: 1,
     username: 'hty',
     userAccount: 'hhty',
-    avatarUrl: '123',
+    avatarUrl: 'https://platypusbucket.oss-cn-shanghai.aliyuncs.com/600x600bb.jpg',
     gender: '男',
     phone: '123123',
     email: '1231232',
-    usertCode: '01',
+    userCode: '01',
     createTime: new Date(),
 }
 
