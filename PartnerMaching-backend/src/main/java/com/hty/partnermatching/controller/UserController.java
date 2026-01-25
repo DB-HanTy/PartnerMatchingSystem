@@ -1,6 +1,7 @@
 package com.hty.partnermatching.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.hty.partnermatching.common.BaseResponse;
 import com.hty.partnermatching.common.ErrorCode;
 import com.hty.partnermatching.common.ResultUtils;
@@ -11,6 +12,7 @@ import com.hty.partnermatching.model.domain.request.UserRegisterRequest;
 import com.hty.partnermatching.service.UserService;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -122,6 +124,19 @@ public class UserController {
         List<User> userList = userService.list(queryWrapper);
         List<User> result = userList.stream().map(user -> userService.getSafetyUser(user)).collect(Collectors.toList());
         return ResultUtils.success(result);
+    }
+    /**
+     * 根据标签搜索用户
+     * @param tagNameList
+     * @return
+     */
+    @GetMapping("/search/tags")
+    public BaseResponse<List<User>> searchUsersByTags(@RequestParam(required = false) List<String> tagNameList){
+        if (CollectionUtils.isEmpty(tagNameList)){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        List<User> userList = userService.searchUsersByTags(tagNameList);
+        return ResultUtils.success(userList);
     }
     /**
      * 删除用户
