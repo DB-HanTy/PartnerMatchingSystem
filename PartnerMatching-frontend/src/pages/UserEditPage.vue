@@ -12,24 +12,34 @@
     </van-button>
   </div>
 </van-form>
-
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute,useRouter } from 'vue-router';
+import myAxios from '../plugins/myAxios';
+import { showToast } from 'vant';
 
 const route = useRoute();
+const router = useRouter();
 const editUser = ref({
     editKey: route.query.editKey,
     currentvalue: route.query.currentValue,
     editName: route.query.editName
 })
 
-const onSubmit = (values) => {
-      //todo: 提交数据
-      console.log('onSubmit',values);
-    };
-console.log(route.query)
+const onSubmit = async () => {
+  const res =  await myAxios.post('/user/update',{
+    'id': 1,
+  [editUser.value.editKey]: editUser.value.currentvalue,
+  })
+  console.log(res,'更新请求');
+  if(res.code === 0 && res.data > 0){
+    showToast({ type: 'success', message: '修改成功' });
+    router.back();
+  }else{
+    showToast({ type: 'fail', message: '修改错误' });
+  }
+};
 </script>
 
 <style scoped>
