@@ -115,7 +115,7 @@ public class UserController {
 
     @GetMapping("/search")
     public BaseResponse<List<User>> searchUsers(String username,HttpServletRequest  request){
-        if (!isAdmin(request)){
+        if (!userService.isAdmin(request)){
             throw new BusinessException(ErrorCode.NOT_AUTH, "缺少管理员权限");
         }
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
@@ -139,6 +139,7 @@ public class UserController {
         List<User> userList = userService.searchUsersByTags(tagNameList);
         return ResultUtils.success(userList);
     }
+
     /**
      * 删除用户
      * @param id 用户ID
@@ -148,7 +149,7 @@ public class UserController {
     @PostMapping("/delete/{id}")
     public BaseResponse<Boolean> deleteUsers(@PathVariable("id") long id, HttpServletRequest request) {
         // 仅管理员可以删除用户
-        if (!isAdmin(request)) {
+        if (!userService.isAdmin(request)) {
             throw new BusinessException(ErrorCode.NOT_AUTH, "缺少管理员权限");
         }
 
@@ -163,37 +164,18 @@ public class UserController {
     /**
      * 更新用户
      * @param user
-     * @param request
+     * @param
      * @return
      */
 
     @PostMapping("/update")
-    public BaseResponse<User> updateUser(@RequestBody User user, HttpServletRequest request) {
-        // 获取当前登录用户
-        Object loginUserObj = request.getSession().getAttribute(USER_LOGIN_STATE);
-        User loginUser = (User) loginUserObj;
-        if (loginUser == null) {
-            throw new BusinessException(ErrorCode.NO_LOGIN, "未登录");
+    public BaseResponse<Integer> updateUser(User user,HttpServletRequest  request) {
+        //校验参数是否为空
+        if (user == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-
-        // 校验参数
-        if (user == null || user.getId() <= 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数错误");
-        }
-
-        // 调用服务层更新用户
-        User result = userService.updateUser(user, loginUser);
+        User loginUser = userService.getLoginUser(request);
+        int result = userService.updateUser(user,loginUser);
         return ResultUtils.success(result);
-    }
-
-    /**
-     * 是否为管理员
-     * @param request
-     * @return
-     */
-    private boolean isAdmin(HttpServletRequest request) {
-        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
-        User user = (User) userObj;
-        return user != null && user.getUserRole() == ADMIN_ROLE;
     }
 }

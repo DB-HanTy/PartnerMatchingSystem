@@ -3,7 +3,6 @@ package com.hty.partnermatching.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
-import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import com.hty.partnermatching.common.ErrorCode;
 import com.hty.partnermatching.exception.BusinessException;
@@ -26,6 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.hty.partnermatching.constant.UserConstant.ADMIN_ROLE;
 import static com.hty.partnermatching.constant.UserConstant.USER_LOGIN_STATE;
 
 /**
@@ -194,58 +194,26 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     /**
      * 更新用户信息
-     * @param updateUser
-     * @param loginUser
+     * @param user, loginUser
+     * @param
      * @return
      */
     @Override
-    public User updateUser(User updateUser, User loginUser) {
-        // 校验参数
-        if (updateUser == null || updateUser.getId() <= 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数错误");
+    public int updateUser(User user, User loginUser) {
+        long userId = user.getId();
+        if (userId <= 0){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-
-        // 查询原用户信息
-        User oldUser = userMapper.selectById(updateUser.getId());
-        if (oldUser == null) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户不存在");
+        //如果是管理员，允许更新任意用户
+        //如果不是管理员，只允许更新（自己的）信息
+        if (!isAdmin(loginUser) && userId != loginUser.getId()){
+            throw new BusinessException(ErrorCode.NOT_AUTH);
         }
-
-        // 构建更新对象，只更新允许的字段（避免更新敏感信息如密码）
-        User updateUserInfo = new User();
-        updateUserInfo.setId(updateUser.getId());
-
-        // 只更新允许的字段
-        if (StringUtils.isNotBlank(updateUser.getUsername())) {
-            updateUserInfo.setUsername(updateUser.getUsername());
+        User oldUser = userMapper.selectById(userId);
+        if (oldUser == null){
+            throw new BusinessException(ErrorCode.NULL_ERROR);
         }
-        if (StringUtils.isNotBlank(updateUser.getUserAccount())) {
-            updateUserInfo.setUserAccount(updateUser.getUserAccount());
-        }
-        if (StringUtils.isNotBlank(updateUser.getAvatarUrl())) {
-            updateUserInfo.setAvatarUrl(updateUser.getAvatarUrl());
-        }
-        if (updateUser.getGender() != null) {
-            updateUserInfo.setGender(updateUser.getGender());
-        }
-        if (StringUtils.isNotBlank(updateUser.getPhone())) {
-            updateUserInfo.setPhone(updateUser.getPhone());
-        }
-        if (StringUtils.isNotBlank(updateUser.getEmail())) {
-            updateUserInfo.setEmail(updateUser.getEmail());
-        }
-        if (updateUser.getUserStatus() != null) {
-            updateUserInfo.setUserStatus(updateUser.getUserStatus());
-        }
-
-        // 执行更新
-        boolean result = this.updateById(updateUserInfo);
-        if (!result) {
-            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "更新失败");
-        }
-
-        // 返回更新后的安全用户信息
-        return getSafetyUser(this.getById(updateUserInfo.getId()));
+        return userMapper.updateById(user);
     }
 
     /**
@@ -293,6 +261,37 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         }).map(this::getSafetyUser).collect(Collectors.toList());
     }
 
+    @Override
+    public User getLoginUser(HttpServletRequest request) {
+        if (request == null){
+            return null;
+        }
+        Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+        if (userObj == null) {
+            throw new BusinessException(ErrorCode.NO_LOGIN, "未登录");
+        }
+        return (User) userObj;
+    }
+    /**
+     * 是否为管理员
+     * @param request
+     * @return
+     */
+    @Override
+    public boolean isAdmin(HttpServletRequest request) {
+            Object userObj = request.getSession().getAttribute(USER_LOGIN_STATE);
+            User user = (User) userObj;
+            return user != null && user.getUserRole() == ADMIN_ROLE;
+    }
+    /**
+     * 是否为管理员
+     * @param
+     * @return
+     */
+    @Override
+    public boolean isAdmin(User loginUser) {
+        return loginUser != null && loginUser.getUserRole() == ADMIN_ROLE;
+    }
 }
 
 
