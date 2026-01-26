@@ -11,11 +11,7 @@
 <van-cell title="注册时间" :value="user.createTime.toISOString()" />
 </template>
 <script setup lang="ts">
-import { showToast } from 'vant';
-import { onMounted, ref } from 'vue';
 import { useRouter } from "vue-router";
-import myAxios from '../plugins/myAxios';
-import qs from 'qs';
 const user = {
     id: 1,
     username: 'hty',
@@ -30,32 +26,6 @@ const user = {
 
 const router = useRouter();
 
-const userList = ref([]);
-
-onMounted(async() => {
-    const userListData = await myAxios.get('/user/search/tags', {
-      paramsSerializer: params => {
-        return qs.stringify(params,{indices: false});
-      },
-    })
-    .then(function (response) {
-        console.log('/user/search/tags success', response);
-        showToast({ type: 'success', message: '请求成功' });
-        return response.data?.data;
-      })
-    .catch(function (error) {
-        console.error('/user/search/tags error', error);
-        showToast({ type: 'fail', message: '请求失败' });
-      })
-    if(userListData){
-      userListData.forEach(user => {
-        if(user.tags){
-          user.tags = JSON.parse(user.tags);
-        }
-      })
-      userList.value = userListData;
-    }
-});
 
 const toEdit = (editKey: string, editName: string , currentValue: string) => {
  router.push({

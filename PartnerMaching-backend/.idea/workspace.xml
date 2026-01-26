@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7159e5fe-8933-4f2d-9ca0-5ae793a383af" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="35bhDkRE4rrRccsSDKhUglbSof5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "HTTP Request.generated-requests | #10.executor": "Run",
+    "HTTP Request.generated-requests | #11.executor": "Run",
+    "HTTP Request.generated-requests | #6.executor": "Run",
+    "HTTP Request.generated-requests | #9.executor": "Run",
+    "HTTP Request.rest-api | #1.executor": "Run",
+    "JUnit.SampleTest.executor": "Run",
+    "JUnit.SampleTest.testSelect.executor": "Run",
+    "JUnit.UserCenterApplicationTests.testDigest.executor": "Run",
+    "JUnit.UserServiceTest.testAddUser.executor": "Run",
+    "JUnit.UserServiceTest.userRegister.executor": "Run",
+    "Maven.user-center [clean].executor": "Run",
+    "Maven.user-center [install].executor": "Run",
+    "Maven.user-center [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.PartnerMatching.executor": "Debug",
+    "Spring Boot.UserCenterApplication.executor": "Debug",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/33038/Desktop/项目/PartnerMatchingSystem/PartnerMatching-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Program Files\\idea\\IntelliJ IDEA 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\33038\Desktop\项目\UserCenter\user-center\src\main\resources" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\33038\Desktop\项目\PartnerMatchingSystem\PartnerMaching-backend\src\main\resources\mapper" />
+      <recent name="C:\Users\33038\Desktop\项目\UserCenter\user-center\src\main\resources\mapper" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.hty.partnermatching.service" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.hty.usercenter.service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.PartnerMatching">
+    <configuration name="generated-requests | #10" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="10" requestIdentifier="#10" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #11" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="11" requestIdentifier="#11" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #6" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="6" requestIdentifier="#6" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #9" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="9" requestIdentifier="#9" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="UserServiceTest.userRegister" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="user-center" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.hty.partnermatching.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.hty.usercenter.service" />
+      <option name="MAIN_CLASS_NAME" value="com.hty.usercenter.service.UserServiceTest" />
+      <option name="METHOD_NAME" value="userRegister" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PartnerMatching" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="partner-matching" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.hty.partnermatching.PartnerMatchingApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="HTTP Request.generated-requests | #10" />
+      <item itemvalue="HTTP Request.generated-requests | #11" />
+      <item itemvalue="HTTP Request.generated-requests | #9" />
+      <item itemvalue="HTTP Request.generated-requests | #6" />
+      <item itemvalue="JUnit.UserServiceTest.userRegister" />
+      <item itemvalue="Spring Boot.PartnerMatching" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.UserServiceTest.userRegister" />
+        <item itemvalue="HTTP Request.generated-requests | #9" />
+        <item itemvalue="HTTP Request.generated-requests | #10" />
+        <item itemvalue="HTTP Request.generated-requests | #11" />
+        <item itemvalue="HTTP Request.generated-requests | #6" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7159e5fe-8933-4f2d-9ca0-5ae793a383af" name="Changes" comment="" />
+      <created>1763384562308</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1763384562308</updated>
+      <workItem from="1763384563545" duration="836000" />
+      <workItem from="1763467816325" duration="3893000" />
+      <workItem from="1763517681165" duration="5265000" />
+      <workItem from="1763598158596" duration="9120000" />
+      <workItem from="1763628099818" duration="16000" />
+      <workItem from="1763641898205" duration="4793000" />
+      <workItem from="1763695821431" duration="3810000" />
+      <workItem from="1763943456585" duration="3819000" />
+      <workItem from="1763958561540" duration="3834000" />
+      <workItem from="1764072844741" duration="423000" />
+      <workItem from="1764122988319" duration="647000" />
+      <workItem from="1764228356597" duration="1381000" />
+      <workItem from="1764248176902" duration="1337000" />
+      <workItem from="1764296213871" duration="2918000" />
+      <workItem from="1764329466004" duration="473000" />
+      <workItem from="1764468471326" duration="1236000" />
+      <workItem from="1764563506651" duration="1261000" />
+      <workItem from="1764590761807" duration="4329000" />
+      <workItem from="1764657563757" duration="55000" />
+      <workItem from="1764728663217" duration="65000" />
+      <workItem from="1764728742259" duration="4763000" />
+      <workItem from="1764814149606" duration="6551000" />
+      <workItem from="1764825899966" duration="1035000" />
+      <workItem from="1764849708028" duration="3309000" />
+      <workItem from="1764900212394" duration="1601000" />
+      <workItem from="1765333360325" duration="5348000" />
+      <workItem from="1765416938786" duration="4686000" />
+      <workItem from="1765435437272" duration="596000" />
+      <workItem from="1765455726161" duration="3214000" />
+      <workItem from="1765515053378" duration="1255000" />
+      <workItem from="1765530417138" duration="190000" />
+      <workItem from="1766211250204" duration="1529000" />
+      <workItem from="1766218193853" duration="940000" />
+      <workItem from="1766628776010" duration="618000" />
+      <workItem from="1766632173833" duration="618000" />
+      <workItem from="1766906673778" duration="7169000" />
+      <workItem from="1766968195288" duration="4098000" />
+      <workItem from="1766977470955" duration="557000" />
+      <workItem from="1768547662957" duration="1889000" />
+      <workItem from="1768615454907" duration="3068000" />
+      <workItem from="1768703822326" duration="410000" />
+      <workItem from="1768704244852" duration="8612000" />
+      <workItem from="1768721813972" duration="671000" />
+      <workItem from="1768899020786" duration="599000" />
+      <workItem from="1769061601301" duration="7583000" />
+      <workItem from="1769322571115" duration="5311000" />
+      <workItem from="1769406794045" duration="103000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
