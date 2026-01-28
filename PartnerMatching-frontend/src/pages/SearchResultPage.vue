@@ -14,7 +14,7 @@
   </template>
 </van-card>
 <div>
-  <van-empty v-if="!userList || userList.length < 1" description="搜索结果为空" />
+  <van-empty v-if="!userList || userList.length < 1" description="搜索结果为空" image="https://img.yzcdn.cn/vant/custom-empty-image.png"/>
 </div>
 </template>
 <script setup>
@@ -41,7 +41,7 @@ onMounted(async() => {
     .then(function (response) {
         console.log('/user/search/tags success', response);
         showToast({ type: 'success', message: '请求成功' });
-        return response.data?.data;
+        return response?.data;
       })
     .catch(function (error) {
         console.error('/user/search/tags error', error);

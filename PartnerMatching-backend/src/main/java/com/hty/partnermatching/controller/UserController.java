@@ -136,7 +136,13 @@ public class UserController {
         List<User> userList = userService.searchUsersByTags(tagNameList);
         return ResultUtils.success(userList);
     }
-
+    @GetMapping("/recommend")
+    public BaseResponse<List<User>> recommendUsers(String username,HttpServletRequest  request){
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        List<User> userList = userService.list(queryWrapper);
+        List<User> result = userList.stream().map(user -> userService.getSafetyUser(user)).collect(Collectors.toList());
+        return ResultUtils.success(result);
+    }
     /**
      * 删除用户
      * @param id 用户ID
