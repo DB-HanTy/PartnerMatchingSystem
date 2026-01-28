@@ -1,7 +1,6 @@
 package com.hty.partnermatching.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.hty.partnermatching.common.BaseResponse;
 import com.hty.partnermatching.common.ErrorCode;
 import com.hty.partnermatching.common.ResultUtils;
@@ -19,14 +18,12 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.hty.partnermatching.constant.UserConstant.ADMIN_ROLE;
 import static com.hty.partnermatching.constant.UserConstant.USER_LOGIN_STATE;
 
 @Api(tags = "用户管理")
 @RestController//@RestController适用于restful风格的api，返回值默认为json类型
 @RequestMapping("/user")
-@CrossOrigin(origins = {"http://localhost:5173"})
+@CrossOrigin(origins = {"http://localhost:5173"}, allowCredentials = "true")
 public class UserController {
 
     @Resource

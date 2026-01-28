@@ -3,6 +3,8 @@ const myAxios: AxiosInstance = axios.create({
   baseURL: 'http://localhost:8085/api'
 });
 
+myAxios.defaults.withCredentials = true;// 允许携带cookie
+
 // Add a request interceptor
 myAxios.interceptors.request.use(function (config) {
     console.log('我要发请求了!',config)

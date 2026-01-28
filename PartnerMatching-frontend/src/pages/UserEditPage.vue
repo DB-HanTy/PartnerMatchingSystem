@@ -14,10 +14,11 @@
 </van-form>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import {  ref } from 'vue';
 import { useRoute,useRouter } from 'vue-router';
 import myAxios from '../plugins/myAxios';
 import { showToast } from 'vant';
+import { getCurrentUser } from '../services/user';
 
 const route = useRoute();
 const router = useRouter();
@@ -28,8 +29,14 @@ const editUser = ref({
 })
 
 const onSubmit = async () => {
+  const currentUser = await getCurrentUser();
+  
+  if(!currentUser){
+    showToast({ type: 'fail', message: '请先登录' });
+    return}
+
   const res =  await myAxios.post('/user/update',{
-    'id': 1,
+    'id': currentUser.id,
   [editUser.value.editKey]: editUser.value.currentvalue,
   })
   console.log(res,'更新请求');
