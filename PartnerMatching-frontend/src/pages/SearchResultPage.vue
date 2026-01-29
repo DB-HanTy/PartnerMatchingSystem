@@ -1,18 +1,5 @@
 <template>
-  <van-card
-  v-for="user in userList"
-  :desc="user.profile"
-  :title="`${user.username} (${user.userCode})`"
-  :thumb="user.avatarUrl"
-
->
-  <template #tags>
-    <van-tag plain type="primary" v-for="tag in user.tags" style="margin-right: 8px;">{{ tag }}</van-tag>
-  </template>
-  <template #footer>
-    <van-button size="mini">联系我</van-button>
-  </template>
-</van-card>
+<user-card-list :userList="userList" />
 <div>
   <van-empty v-if="!userList || userList.length < 1" description="搜索结果为空" image="https://img.yzcdn.cn/vant/custom-empty-image.png"/>
 </div>

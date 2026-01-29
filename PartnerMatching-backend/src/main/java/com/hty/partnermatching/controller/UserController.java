@@ -1,6 +1,7 @@
 package com.hty.partnermatching.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hty.partnermatching.common.BaseResponse;
 import com.hty.partnermatching.common.ErrorCode;
 import com.hty.partnermatching.common.ResultUtils;
@@ -137,11 +138,10 @@ public class UserController {
         return ResultUtils.success(userList);
     }
     @GetMapping("/recommend")
-    public BaseResponse<List<User>> recommendUsers(String username,HttpServletRequest  request){
+    public BaseResponse<Page<User>> recommendUsers(long pageSize,long pageNum,HttpServletRequest  request){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        List<User> userList = userService.list(queryWrapper);
-        List<User> result = userList.stream().map(user -> userService.getSafetyUser(user)).collect(Collectors.toList());
-        return ResultUtils.success(result);
+        Page<User> userList = userService.page(new Page<>(pageNum,pageSize),queryWrapper);
+        return ResultUtils.success(userList);
     }
     /**
      * 删除用户
