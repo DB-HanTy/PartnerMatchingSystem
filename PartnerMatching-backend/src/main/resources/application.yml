@@ -1,4 +1,8 @@
 spring:
+  redis:
+    prot: 6379
+    host: localhost
+    database: 0
   profiles:
     active: dev
   application:
