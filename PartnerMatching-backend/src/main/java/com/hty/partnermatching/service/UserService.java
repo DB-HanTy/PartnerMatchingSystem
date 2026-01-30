@@ -1,5 +1,6 @@
 package com.hty.partnermatching.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hty.partnermatching.model.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -73,6 +74,8 @@ public interface UserService extends IService<User> {
      */
     User getLoginUser(HttpServletRequest request);
 
+
+
     /**
      * 是否为管理员
      * @param request
@@ -81,4 +84,13 @@ public interface UserService extends IService<User> {
     boolean isAdmin(HttpServletRequest request);
 
     boolean isAdmin(User loginUser);
+
+    /**
+     * 推荐用户
+     * @param pageSize
+     * @param pageNum
+     * @param request
+     * @return
+     */
+    Page<User> getRecommendUsers(long pageSize, long pageNum, HttpServletRequest request);
 }

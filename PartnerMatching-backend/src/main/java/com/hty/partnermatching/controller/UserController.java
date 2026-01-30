@@ -145,25 +145,16 @@ public class UserController {
         List<User> userList = userService.searchUsersByTags(tagNameList);
         return ResultUtils.success(userList);
     }
+    /**
+     * 获取推荐用户（带缓存）
+     * @param pageSize 页面大小
+     * @param pageNum 页码
+     * @param request HTTP请求
+     * @return 分页用户数据
+     */
     @GetMapping("/recommend")
     public BaseResponse<Page<User>> recommendUsers(long pageSize,long pageNum,HttpServletRequest  request){
-        User loginUser = userService.getLoginUser(request);
-        String redisKey = String.format("partnermatching:user:recommend:%s",loginUser.getId());
-        ValueOperations<String, Object>valueOperations = redisTemplate.opsForValue();
-        //如果有缓存，直接读缓存
-        Page<User> userPage = (Page<User>) valueOperations.get(redisKey);
-        if (userPage != null){
-            return ResultUtils.success(userPage);
-        }
-        //无缓存，查数据库
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        userPage = userService.page(new Page<>(pageNum,pageSize),queryWrapper);
-        //写缓存
-        try {
-            valueOperations.set(redisKey,userPage,30000, TimeUnit.MILLISECONDS);
-        }catch (Exception e){
-            log.error("redis set key error",e);
-        }
+        Page<User> userPage = userService.getRecommendUsers(pageSize, pageNum,request);
         return ResultUtils.success(userPage);
     }
     /**
