@@ -1,6 +1,6 @@
 spring:
   redis:
-    prot: 6379
+    port: 6379
     host: localhost
     database: 0
   profiles:
