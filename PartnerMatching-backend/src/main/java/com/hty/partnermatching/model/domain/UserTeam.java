@@ -1,42 +1,37 @@
 package com.hty.partnermatching.model.domain;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.util.Date;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
- * 标签表
- * @TableName tag
+ * 用户-队伍关系
+ * @TableName user_team
  */
-@TableName(value ="tag")
+@TableName(value ="user_team")
 @Data
-public class Tag {
+public class UserTeam {
     /**
-     * 
+     * id
      */
     @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
-     * 标签名称
+     * 用户id
      */
-    private String tagName;
+    private Long userId;
 
     /**
-     * 用户 id
+     * 队伍id
      */
-    private String userId;
+    private Long teamId;
 
     /**
-     * 父标签
+     * 加入时间
      */
-    private Long parentId;
-
-    /**
-     * 0-是父标签, 1-不是父标签
-     */
-    private Integer isParent;
+    private Date joinTime;
 
     /**
      * 创建时间
@@ -49,8 +44,11 @@ public class Tag {
     private Date updateTime;
 
     /**
-     * 是否删除
+     *  是否删除
      */
     @TableLogic
     private Integer isDelete;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 }
