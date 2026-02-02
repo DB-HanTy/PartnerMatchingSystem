@@ -4,15 +4,18 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.hty.partnermatching.common.PageRequest;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
 /**
  * 队伍查询封装类
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class TeamQuery {
+public class TeamQuery extends PageRequest {
     /**
      * id
      */
