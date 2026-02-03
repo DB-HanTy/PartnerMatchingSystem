@@ -1,8 +1,10 @@
 package com.hty.partnermatching.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hty.partnermatching.model.domain.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.hty.partnermatching.model.domain.UserTeam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -93,4 +95,5 @@ public interface UserService extends IService<User> {
      * @return
      */
     Page<User> getRecommendUsers(long pageSize, long pageNum, HttpServletRequest request);
+
 }

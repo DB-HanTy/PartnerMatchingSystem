@@ -9,10 +9,7 @@ import com.hty.partnermatching.exception.BusinessException;
 import com.hty.partnermatching.model.domain.Team;
 import com.hty.partnermatching.model.domain.User;
 import com.hty.partnermatching.model.dto.TeamQuery;
-import com.hty.partnermatching.model.request.TeamAddRequest;
-import com.hty.partnermatching.model.request.TeamUpdateRequest;
-import com.hty.partnermatching.model.request.UserLoginRequest;
-import com.hty.partnermatching.model.request.UserRegisterRequest;
+import com.hty.partnermatching.model.request.*;
 import com.hty.partnermatching.model.vo.TeamUserVO;
 import com.hty.partnermatching.service.TeamService;
 import com.hty.partnermatching.service.UserService;
@@ -67,17 +64,6 @@ public class TeamController {
         return ResultUtils.success(true);
     }
 
-//    @PostMapping("/update")
-//    public BaseResponse<Boolean> updateTeam(@RequestBody Team  team){
-//        if (team == null){
-//            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-//        }
-//        boolean result = teamService.updateById(team);
-//        if (!result){
-//            throw new BusinessException(ErrorCode.SYSTEM_ERROR,"更新失败");
-//        }
-//        return ResultUtils.success(true);
-//    }
     @PostMapping("/update")
     public BaseResponse<Boolean> updateTeam(@RequestBody TeamUpdateRequest teamUpdateRequest,HttpServletRequest  request){
         if (teamUpdateRequest == null){
@@ -126,6 +112,15 @@ public class TeamController {
         return ResultUtils.success(resultPage);
     }
 
+    @PostMapping("/join")
+    public BaseResponse<Boolean> joinTeam(@RequestBody TeamJoinRequest teamJoinRequest, HttpServletRequest request){
+        if (teamJoinRequest == null){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        User loginUser = userService.getLoginUser(request);
+        boolean result =  teamService.joinTeam(teamJoinRequest,loginUser);
+        return ResultUtils.success(result);
+    }
 
 
 }
