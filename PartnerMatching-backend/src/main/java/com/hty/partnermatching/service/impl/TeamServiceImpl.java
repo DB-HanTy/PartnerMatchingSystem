@@ -114,13 +114,17 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
     }
 
     @Override
-    public List<TeamUserVO> listTeams(TeamQuery teamQuery) {
+    public List<TeamUserVO> listTeams(TeamQuery teamQuery, boolean isAdmin) {
         QueryWrapper<Team> queryWrapper = new QueryWrapper<>();
         //组合查询条件
         if (teamQuery != null) {
             Long id = teamQuery.getId();
             if (id != null && id > 0) {
                 queryWrapper.eq("id", id);
+            }
+            String searchText = teamQuery.getSearchText();
+            if (StringUtils.isNotBlank(searchText)){
+                queryWrapper.and(qw -> qw.like("name", searchText).or().like("description", searchText));
             }
             String name = teamQuery.getName();
             if (StringUtils.isNotBlank(name)) {
@@ -142,9 +146,14 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
             }
             //根据状态来查询
             Integer status = teamQuery.getStatus();
-            if (status != null && status >= 0) {
-                queryWrapper.eq("status", status);
+            TeamStatusEnum statusEnum = TeamStatusEnum.getEnumByValue(status);
+            if (statusEnum == null){
+                statusEnum = TeamStatusEnum.PUBLIC;
             }
+            if (!isAdmin && !statusEnum.equals(TeamStatusEnum.PRIVATE)){
+                throw new BusinessException(ErrorCode.NOT_AUTH);
+            }
+            queryWrapper.eq("status", statusEnum.getValue());
         }
         //不展示已过期的队伍
         queryWrapper.and(qw -> qw.gt("expireTime", new Date()).or().isNull("expireTime"));
