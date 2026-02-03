@@ -9,14 +9,22 @@ import com.hty.partnermatching.mapper.TeamMapper;
 import com.hty.partnermatching.model.domain.Team;
 import com.hty.partnermatching.model.domain.User;
 import com.hty.partnermatching.model.domain.UserTeam;
+import com.hty.partnermatching.model.dto.TeamQuery;
+import com.hty.partnermatching.model.vo.TeamUserVO;
+import com.hty.partnermatching.model.vo.UserVO;
 import com.hty.partnermatching.service.TeamService;
+import com.hty.partnermatching.service.UserService;
 import com.hty.partnermatching.service.UserTeamService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -29,6 +37,9 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
         implements TeamService{
     @Resource
     private UserTeamService userTeamService;
+
+    @Resource
+    private UserService userService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -100,5 +111,64 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
             throw new BusinessException(ErrorCode.PARAMS_ERROR,"创建队伍失败");
         }
         return teamId;
+    }
+
+    @Override
+    public List<TeamUserVO> listTeams(TeamQuery teamQuery) {
+        QueryWrapper<Team> queryWrapper = new QueryWrapper<>();
+        //组合查询条件
+        if (teamQuery != null) {
+            Long id = teamQuery.getId();
+            if (id != null && id > 0) {
+                queryWrapper.eq("id", id);
+            }
+            String name = teamQuery.getName();
+            if (StringUtils.isNotBlank(name)) {
+                queryWrapper.like("name", name);
+            }
+            String description = teamQuery.getDescription();
+            if (StringUtils.isNotBlank(description)) {
+                queryWrapper.like("description", description);
+            }
+            Integer maxNum = teamQuery.getMaxNum();
+            //查询最大人数
+            if (maxNum != null && maxNum > 0) {
+                queryWrapper.eq("maxNum", maxNum);
+            }
+            Long userId = teamQuery.getUserId();
+            //根据创建人来查询
+            if (userId != null && userId > 0) {
+                queryWrapper.eq("userId", userId);
+            }
+            //根据状态来查询
+            Integer status = teamQuery.getStatus();
+            if (status != null && status >= 0) {
+                queryWrapper.eq("status", status);
+            }
+        }
+        //不展示已过期的队伍
+        queryWrapper.and(qw -> qw.gt("expireTime", new Date()).or().isNull("expireTime"));
+
+        List<Team> teamList = this.list(queryWrapper);
+        if (CollectionUtils.isEmpty(teamList)){
+            return new ArrayList<>();
+        }
+        List<TeamUserVO> teamUserVOList = new ArrayList<>();
+        for (Team team : teamList){
+            Long userId = team.getUserId();
+            if (userId == null){
+                continue;
+            }
+            User user = userService.getById(userId);
+            TeamUserVO teamUserVO = new TeamUserVO();
+            BeanUtils.copyProperties(team,teamUserVO);
+            //脱敏用户信息
+            UserVO userVO = new UserVO();
+            BeanUtils.copyProperties(user,userVO);
+            teamUserVO.setCreateUser(userVO);
+            teamUserVOList.add(teamUserVO);
+        }
+
+        return teamUserVOList;
     }
 }

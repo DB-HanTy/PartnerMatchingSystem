@@ -12,6 +12,7 @@ import com.hty.partnermatching.model.dto.TeamQuery;
 import com.hty.partnermatching.model.request.TeamAddRequest;
 import com.hty.partnermatching.model.request.UserLoginRequest;
 import com.hty.partnermatching.model.request.UserRegisterRequest;
+import com.hty.partnermatching.model.vo.TeamUserVO;
 import com.hty.partnermatching.service.TeamService;
 import com.hty.partnermatching.service.UserService;
 import io.swagger.annotations.Api;
@@ -89,16 +90,24 @@ public class TeamController {
         return ResultUtils.success(team);
     }
 
-    @GetMapping("/list")
-    public BaseResponse<List<Team>> listTeams(TeamQuery teamQuery){
-        if (teamQuery == null){
-            throw new BusinessException(ErrorCode.PARAMS_ERROR);
-        }
-        Team team = new Team();
-        BeanUtils.copyProperties(team,teamQuery);
-        QueryWrapper<Team> queryWrapper = new QueryWrapper<>(team);
-        List<Team> teamList = teamService.list(queryWrapper);
-        return ResultUtils.success(teamList);
+//    @GetMapping("/list")
+//    public BaseResponse<List<Team>> listTeams(TeamQuery teamQuery){
+//        if (teamQuery == null){
+//            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+//        }
+//        Team team = new Team();
+//        BeanUtils.copyProperties(team,teamQuery);
+//        QueryWrapper<Team> queryWrapper = new QueryWrapper<>(team);
+//        List<Team> teamList = teamService.list(queryWrapper);
+//        return ResultUtils.success(teamList);
+//    }
+       @GetMapping("/list")
+       public BaseResponse<List<TeamUserVO>> listTeams(TeamQuery teamQuery){
+           if (teamQuery == null){
+               throw new BusinessException(ErrorCode.PARAMS_ERROR);
+           }
+       List<TeamUserVO> teamList = teamService.listTeams(teamQuery);
+       return ResultUtils.success(teamList);
     }
 
     @GetMapping("/list/page")

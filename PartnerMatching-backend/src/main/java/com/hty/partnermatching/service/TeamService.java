@@ -3,6 +3,10 @@ package com.hty.partnermatching.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hty.partnermatching.model.domain.Team;
 import com.hty.partnermatching.model.domain.User;
+import com.hty.partnermatching.model.dto.TeamQuery;
+import com.hty.partnermatching.model.vo.TeamUserVO;
+
+import java.util.List;
 
 /**
 * @author 33038
@@ -16,4 +20,11 @@ public interface TeamService extends IService<Team> {
      * @return
      */
     long addTeam(Team team, User loginUser);
+
+    /**
+     * 搜索队伍
+     * @param teamQuery
+     * @return
+     */
+    List<TeamUserVO> listTeams(TeamQuery teamQuery);
 }
