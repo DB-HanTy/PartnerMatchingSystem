@@ -1,16 +1,19 @@
 package com.hty.partnermatching.model.request;
 
 import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 创建队伍请求体
- */
 @Data
-public class TeamAddRequest implements Serializable {
+public class TeamUpdateRequest implements Serializable {
 
     private static final long serialVersionUID = 1246981163781L;
+
+    /**
+     * id
+     */
+    private Long id;
 
     /**
      * 队伍名称
@@ -22,10 +25,12 @@ public class TeamAddRequest implements Serializable {
      */
     private String description;
 
+
     /**
      * 过期时间
      */
     private Date expireTime;
+
 
     /**
      * 0-公开 1-私有 2-加密

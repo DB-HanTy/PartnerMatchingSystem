@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.hty.partnermatching.model.domain.Team;
 import com.hty.partnermatching.model.domain.User;
 import com.hty.partnermatching.model.dto.TeamQuery;
+import com.hty.partnermatching.model.request.TeamUpdateRequest;
 import com.hty.partnermatching.model.vo.TeamUserVO;
 
 import java.util.List;
@@ -29,4 +30,11 @@ public interface TeamService extends IService<Team> {
      * @return
      */
     List<TeamUserVO> listTeams(TeamQuery teamQuery, boolean isAdmin);
+
+    /**
+     * 更新队伍
+     * @param teamUpdateRequest
+     * @return
+     */
+    boolean updateTeam(TeamUpdateRequest teamUpdateRequest, User loginUser);
 }

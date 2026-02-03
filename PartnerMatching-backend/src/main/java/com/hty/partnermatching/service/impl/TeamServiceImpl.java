@@ -10,6 +10,7 @@ import com.hty.partnermatching.model.domain.Team;
 import com.hty.partnermatching.model.domain.User;
 import com.hty.partnermatching.model.domain.UserTeam;
 import com.hty.partnermatching.model.dto.TeamQuery;
+import com.hty.partnermatching.model.request.TeamUpdateRequest;
 import com.hty.partnermatching.model.vo.TeamUserVO;
 import com.hty.partnermatching.model.vo.UserVO;
 import com.hty.partnermatching.service.TeamService;
@@ -150,7 +151,7 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
             if (statusEnum == null){
                 statusEnum = TeamStatusEnum.PUBLIC;
             }
-            if (!isAdmin && !statusEnum.equals(TeamStatusEnum.PRIVATE)){
+            if (!isAdmin && !statusEnum.equals(TeamStatusEnum.PUBLIC)){
                 throw new BusinessException(ErrorCode.NOT_AUTH);
             }
             queryWrapper.eq("status", statusEnum.getValue());
@@ -172,12 +173,44 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
             TeamUserVO teamUserVO = new TeamUserVO();
             BeanUtils.copyProperties(team,teamUserVO);
             //脱敏用户信息
-            UserVO userVO = new UserVO();
-            BeanUtils.copyProperties(user,userVO);
-            teamUserVO.setCreateUser(userVO);
+            if (user != null){
+                UserVO userVO = new UserVO();
+                BeanUtils.copyProperties(user,userVO);
+                teamUserVO.setCreateUser(userVO);
+            }
             teamUserVOList.add(teamUserVO);
         }
 
         return teamUserVOList;
+    }
+
+    @Override
+    public boolean updateTeam(TeamUpdateRequest teamUpdateRequest, User loginUser) {
+        //判断请求参数是否为空
+        if (teamUpdateRequest == null){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Long id = teamUpdateRequest.getId();
+        if (id == null || id <= 0){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Team oldTeam = this.getById(id);
+        //查询队伍是否存在
+        if (oldTeam == null){
+            throw new BusinessException(ErrorCode.NULL_ERROR,"队伍不存在");
+        }
+        //只有管理员或者队伍的创建者可以修改
+        if (oldTeam.getUserId() != loginUser.getId() && !userService.isAdmin(loginUser)){
+            throw new BusinessException(ErrorCode.NOT_AUTH);
+        }
+        TeamStatusEnum statusEnum = TeamStatusEnum.getEnumByValue(teamUpdateRequest.getStatus());
+        if (statusEnum.equals(TeamStatusEnum.SECRET)){
+            if (StringUtils.isNotBlank(teamUpdateRequest.getPassword())){
+                throw new BusinessException(ErrorCode.PARAMS_ERROR,"加密队伍必须设置密码");
+            }
+        }
+        Team updateTeam = new Team();
+        BeanUtils.copyProperties(teamUpdateRequest,updateTeam);
+        return this.updateById(updateTeam);
     }
 }
