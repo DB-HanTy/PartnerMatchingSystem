@@ -3,13 +3,17 @@ package com.hty.partnermatching.model.request;
 import lombok.Data;
 
 import java.io.Serializable;
+
 /**
- * 加入队伍请求
+ * 退出队伍请求
  */
 @Data
-public class TeamJoinRequest implements Serializable {
+public class TeamQuitRequest implements Serializable {
+
+    private static final long serialVersionUID = -8570590165397077490L;
+
     /**
-     * id
+     *  id
      */
     private Long teamId;
 

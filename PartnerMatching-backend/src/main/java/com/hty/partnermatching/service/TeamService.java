@@ -5,6 +5,7 @@ import com.hty.partnermatching.model.domain.Team;
 import com.hty.partnermatching.model.domain.User;
 import com.hty.partnermatching.model.dto.TeamQuery;
 import com.hty.partnermatching.model.request.TeamJoinRequest;
+import com.hty.partnermatching.model.request.TeamQuitRequest;
 import com.hty.partnermatching.model.request.TeamUpdateRequest;
 import com.hty.partnermatching.model.vo.TeamUserVO;
 
@@ -45,4 +46,11 @@ public interface TeamService extends IService<Team> {
      * @return
      */
     boolean joinTeam(TeamJoinRequest teamJoinRequest, User loginUser);
+
+    /**
+     * 退出队伍
+     * @param teamQuitRequest
+     * @return
+     */
+    boolean quitTeam(TeamQuitRequest teamQuitRequest, User loginUser);
 }
