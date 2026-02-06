@@ -28,6 +28,11 @@ public class TeamAddRequest implements Serializable {
     private Date expireTime;
 
     /**
+     * 最大人数
+     */
+    private Integer maxNum;
+
+    /**
      * 0-公开 1-私有 2-加密
      */
     private Integer status;

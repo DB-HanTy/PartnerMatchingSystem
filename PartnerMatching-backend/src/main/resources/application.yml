@@ -7,6 +7,9 @@ spring:
     active: dev
   application:
     name: partner-maching
+    jackson:
+      date-format: yyyy-MM-dd
+      time-zone: Asia/Shanghai
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root

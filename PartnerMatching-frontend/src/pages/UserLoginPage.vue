@@ -23,7 +23,6 @@
     </van-button>
   </div>
 </van-form>
-
 </template>
 <script setup lang="ts">
 import { useRouter } from "vue-router";
