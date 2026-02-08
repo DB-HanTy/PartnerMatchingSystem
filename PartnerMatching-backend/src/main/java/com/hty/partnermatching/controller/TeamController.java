@@ -200,8 +200,8 @@ public class TeamController {
      * @param teamQuery
      * @return
      */
-    @GetMapping("/list")
-    public BaseResponse<List<TeamUserVO>> listTeams(TeamQuery teamQuery,HttpServletRequest  request){
+    @GetMapping("/list/add")
+    public BaseResponse<List<TeamUserVO>> listAddTeams(TeamQuery teamQuery,HttpServletRequest  request){
         if (teamQuery == null){
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
