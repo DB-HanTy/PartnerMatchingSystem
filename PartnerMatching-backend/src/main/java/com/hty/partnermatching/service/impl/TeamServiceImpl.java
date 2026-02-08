@@ -196,7 +196,7 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
         Team oldTeam = getTeamById(id);
         //只有管理员或者队伍的创建者可以修改
         if (oldTeam.getUserId() != loginUser.getId() && !userService.isAdmin(loginUser)){
-            throw new BusinessException(ErrorCode.NOT_AUTH);
+            throw new BusinessException(ErrorCode.NOT_AUTH,"你没有权限");
         }
         TeamStatusEnum statusEnum = TeamStatusEnum.getEnumByValue(teamUpdateRequest.getStatus());
         if (statusEnum.equals(TeamStatusEnum.SECRET)){

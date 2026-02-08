@@ -8,7 +8,7 @@
     <div style="margin-bottom: 16px" ></div>
     <van-button class="add-button" type="primary" icon="plus" @click="toAddTeam" />
     <team-card-list :teamList="teamList" />
-    <van-empty v-if="teamList?.length < 1" description="数据为空"/>
+    <van-empty v-if="teamList?.length < 1" description="数据为空" image="https://img.yzcdn.cn/vant/custom-empty-image.png"/>
   </div>
 </template>
 <script setup lang="ts">

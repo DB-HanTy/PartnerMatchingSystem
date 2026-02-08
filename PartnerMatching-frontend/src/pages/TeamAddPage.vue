@@ -1,7 +1,7 @@
 <template>
-    <div id="teamAddPage">
-        <van-form @submit="onSubmit">
-  <van-cell-group inset>
+  <div id="teamAddPage">
+    <van-form @submit="onSubmit">
+    <van-cell-group inset>
     <van-field
        v-model="addTeamData.name"
        name="name"
