@@ -8,11 +8,13 @@ import com.hty.partnermatching.common.ResultUtils;
 import com.hty.partnermatching.exception.BusinessException;
 import com.hty.partnermatching.model.domain.Team;
 import com.hty.partnermatching.model.domain.User;
+import com.hty.partnermatching.model.domain.UserTeam;
 import com.hty.partnermatching.model.dto.TeamQuery;
 import com.hty.partnermatching.model.request.*;
 import com.hty.partnermatching.model.vo.TeamUserVO;
 import com.hty.partnermatching.service.TeamService;
 import com.hty.partnermatching.service.UserService;
+import com.hty.partnermatching.service.UserTeamService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +24,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.hty.partnermatching.constant.UserConstant.USER_LOGIN_STATE;
@@ -39,6 +43,9 @@ public class TeamController {
 
     @Resource
     private TeamService teamService;
+
+    @Resource
+    private UserTeamService userTeamService;
 
     /**
      * 创建队伍
@@ -205,8 +212,16 @@ public class TeamController {
         if (teamQuery == null){
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        boolean isAdmin = userService.isAdmin(request);
-        List<TeamUserVO> teamList = teamService.listTeams(teamQuery, isAdmin);
+        User loginUser = userService.getLoginUser(request);
+        QueryWrapper<UserTeam> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("userId",loginUser.getId());
+        List<UserTeam> userTeamList = userTeamService.list(queryWrapper);
+        //取出不重复的队伍id
+        Map<Long, List<UserTeam>> listMap = userTeamList.stream()
+                .collect(Collectors.groupingBy(UserTeam::getTeamId));
+        List<Long> idList = new ArrayList<>(listMap.keySet());
+        teamQuery.setIdList(idList);
+        List<TeamUserVO> teamList = teamService.listTeams(teamQuery, true);
         return ResultUtils.success(teamList);
     }
 
