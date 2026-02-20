@@ -31,14 +31,14 @@
                     @click="preJoinTeam(team)">
           加入队伍
         </van-button>
-        <van-button v-if="team.id === currentUser?.id" size="small" plain
+        <van-button v-if="team.userId === currentUser?.id" size="small" plain
                     @click="doUpdateTeam(team.id)">更新队伍
         </van-button>
         <!-- 仅加入队伍可见 -->
-        <van-button v-if="team.id == currentUser?.id && team.hasJoinNum" size="small" plain
+        <van-button v-if="team.userId === currentUser?.id && team.hasJoinNum" size="small" plain
                     @click="doQuitTeam(team.id)">退出队伍
         </van-button>
-        <van-button v-if="team.id === currentUser?.id" size="small" type="danger" plain
+        <van-button v-if="team.userId === currentUser?.id" size="small" type="danger" plain
                     @click="doDeleteTeam(team.id)">解散队伍
         </van-button>
       </template>
@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { TeamType } from "../models/team";
+import type { TeamType } from "../models/team";
 import {teamStatusEnum} from "../constants/team";
 import ikun from '../assets/ikun.png';
 import myAxios from "../plugins/myAxios";
@@ -78,9 +78,11 @@ const router = useRouter();
 
 onMounted(async () => {
   currentUser.value = await getCurrentUser();
+  console.log('当前用户:', currentUser.value); // 添加日志验证
 })
 
 const preJoinTeam = (team: TeamType) => {
+  console.log('当前队伍 ID:', team.id);
   joinTeamId.value = team.id;
   if (team.status === 0) {
     doJoinTeam()
