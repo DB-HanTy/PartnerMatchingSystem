@@ -27,7 +27,7 @@
         </div>
       </template>
       <template #footer>
-        <van-button size="small" type="primary" v-if="team.id !== currentUser?.id && !team.hasJoinNum" plain
+        <van-button size="small" type="primary" v-if="team.userId !== currentUser?.id && !team.hasJoin" plain
                     @click="preJoinTeam(team)">
           加入队伍
         </van-button>
@@ -35,7 +35,7 @@
                     @click="doUpdateTeam(team.id)">更新队伍
         </van-button>
         <!-- 仅加入队伍可见 -->
-        <van-button v-if="team.userId === currentUser?.id && team.hasJoinNum" size="small" plain
+        <van-button v-if="team.userId !== currentUser?.id && team.hasJoinNum" size="small" plain
                     @click="doQuitTeam(team.id)">退出队伍
         </van-button>
         <van-button v-if="team.userId === currentUser?.id" size="small" type="danger" plain
@@ -82,7 +82,7 @@ onMounted(async () => {
 })
 
 const preJoinTeam = (team: TeamType) => {
-  console.log('当前队伍 ID:', team.id);
+  console.log('当前队伍 ID:', team.userId);
   joinTeamId.value = team.id;
   if (team.status === 0) {
     doJoinTeam()

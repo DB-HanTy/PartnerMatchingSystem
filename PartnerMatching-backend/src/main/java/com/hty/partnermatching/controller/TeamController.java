@@ -3,6 +3,7 @@ package com.hty.partnermatching.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hty.partnermatching.common.BaseResponse;
+import com.hty.partnermatching.common.DeleteRequest;
 import com.hty.partnermatching.common.ErrorCode;
 import com.hty.partnermatching.common.ResultUtils;
 import com.hty.partnermatching.exception.BusinessException;
@@ -17,7 +18,6 @@ import com.hty.partnermatching.service.UserService;
 import com.hty.partnermatching.service.UserTeamService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import static com.hty.partnermatching.constant.UserConstant.USER_LOGIN_STATE;
 
 @Api(tags = "队伍接口")
 @RestController//@RestController适用于restful风格的api，返回值默认为json类型
@@ -196,15 +194,16 @@ public class TeamController {
 
     /**
      * 删除队伍
-     * @param id
+     * @param
      * @param request
      * @return
      */
     @PostMapping("/delete")
-    public BaseResponse<Boolean> deleteTeam(@RequestBody long id,HttpServletRequest  request){
-        if (id <= 0){
+    public BaseResponse<Boolean> deleteTeam(@RequestBody DeleteRequest deleteRequest, HttpServletRequest  request){
+        if (deleteRequest == null || deleteRequest.getId() <= 0){
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+        long id = deleteRequest.getId();
         User loginUser = userService.getLoginUser(request);
         boolean result = teamService.deleteTeam(id,loginUser);
         if (!result){
